@@ -15,7 +15,7 @@ function App() {
     {
       id: "02",
       name: "Custom Model Test",
-      desc: "A test of the custom model",
+      desc: "This was testing importing a 3d model from a outside source.",
       component: <CustomModelTest canvasSize={canvasSize} />,
     },
     {
@@ -45,7 +45,10 @@ function App() {
           <Header.Subheader>
             Created by <a href="https://github.com/teobot">Theo Clapperton</a>{" "}
             showing what could be done using{" "}
-            <a href="https://threejs.org/">Three.js</a>.
+            <a href="https://threejs.org/">Three.js</a>,
+            <Divider hidden fitted />
+            Go see the code{" "}
+            <a href="https://github.com/teobot/threejs-mug">repo on github</a>.
           </Header.Subheader>
         </Header.Content>
       </Header>
