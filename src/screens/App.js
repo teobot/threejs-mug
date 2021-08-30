@@ -23,7 +23,7 @@ function App() {
       name: "Testing Canvas",
       desc: "This was my first attempt at generating some kind of scene using threejs. You can click the ball to make it jump.",
       component: <TestCanvas canvasSize={canvasSize} />,
-    }
+    },
   ];
 
   const [selectedCanvas, setSelectedCanvas] = useState(null);
@@ -80,13 +80,21 @@ function App() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection: "column"
+                    flexDirection: "column",
                   }}
                 >
-                  <Header inverted as="h2">Click to render the canvas</Header>
-                  <Button size="large" primary onClick={() => {
-                    setSelectedCanvas(id);
-                  }}>Render Canvas</Button>
+                  <Header inverted as="h2">
+                    Click to render the canvas
+                  </Header>
+                  <Button
+                    size="large"
+                    primary
+                    onClick={() => {
+                      setSelectedCanvas(id);
+                    }}
+                  >
+                    Render Canvas
+                  </Button>
                 </div>
               )}
             </div>

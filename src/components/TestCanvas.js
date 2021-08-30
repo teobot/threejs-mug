@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
@@ -10,9 +11,12 @@ function Box() {
   }));
 
   return (
-    <mesh ref={ref} onClick={() => {
-      api.velocity.set(0, 5, 0);
-    }}>
+    <mesh
+      ref={ref}
+      onClick={() => {
+        api.velocity.set(0, 5, 0);
+      }}
+    >
       <boxBufferGeometry />
       <meshStandardMaterial color="blue" />
     </mesh>
@@ -31,19 +35,21 @@ function Plane() {
 
 export default function TestCanvas({ canvasSize }) {
   return (
-    <Canvas
-      style={{
-        height: canvasSize / 2,
-        width: canvasSize,
-      }}
-    >
-      <OrbitControls />
-      <Stars />
-      <pointLight position={[10, 10, 10]} />
-      <Physics>
-        <Box />
-        <Plane />
-      </Physics>
-    </Canvas>
+    <Suspense fallback={<div>Loading</div>}>
+      <Canvas
+        style={{
+          height: canvasSize / 2,
+          width: canvasSize,
+        }}
+      >
+        <OrbitControls />
+        <Stars />
+        <pointLight position={[10, 10, 10]} />
+        <Physics>
+          <Box />
+          <Plane />
+        </Physics>
+      </Canvas>
+    </Suspense>
   );
 }
