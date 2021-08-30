@@ -26,11 +26,15 @@ function App() {
     }
   ];
 
-  const [selectedCanvas, setSelectedCanvas] = useState(CanvasObjects[0].id);
+  const [selectedCanvas, setSelectedCanvas] = useState(null);
 
   useEffect(() => {
     setCanvasSize(canvasContainer.current.clientWidth);
   }, [canvasContainer.current]);
+
+  useEffect(() => {
+    setSelectedCanvas(CanvasObjects[0].id);
+  }, []);
 
   return (
     <Container>
