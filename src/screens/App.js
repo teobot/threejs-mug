@@ -104,6 +104,7 @@ function App() {
           </Segment>
         );
       })}
+      <Divider hidden />
     </Container>
   );
 }
