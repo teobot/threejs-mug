@@ -1,17 +1,25 @@
 import { useEffect, useState, useRef } from "react";
 
-import { Button, Container, Divider, Header, Segment } from "semantic-ui-react";
+import { Button, Container, Divider, Header, Segment, Modal, Menu, Icon } from "semantic-ui-react";
 
 import "../css/App.css";
 
 import TestCanvas from "../components/TestCanvas";
 import CustomModelTest from "../components/CustomModelTest";
+import CustomModelTexture from "../components/CustomModelTexture";
 
 function App() {
   const canvasContainer = useRef();
   const [canvasSize, setCanvasSize] = useState(300);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const CanvasObjects = [
+    {
+      id: "03",
+      name: "Custom Texture Test",
+      desc: "Testing a custom texture canvas on the custom model",
+      component: <CustomModelTexture canvasSize={canvasSize} />,
+    },
     {
       id: "02",
       name: "Custom Model Test",
@@ -53,15 +61,30 @@ function App() {
         </Header.Content>
       </Header>
       <Divider inverted />
-      {CanvasObjects.map(({ id, name, desc, component }) => {
+      {CanvasObjects.map(({ id, name, desc, component }, index) => {
         return (
-          <Segment inverted>
-            <Header inverted dividing>
-              <Header.Content>
-                {name}
-                <Header.Subheader>{desc}</Header.Subheader>
-              </Header.Content>
-            </Header>
+          <Segment inverted key={index + ""}>
+            <Menu inverted secondary>
+              <Menu.Menu position="left">
+                <Menu.Item header>
+                  {name}
+                </Menu.Item>
+                <Menu.Item>
+                  {desc}
+                </Menu.Item>
+              </Menu.Menu>
+              <Menu.Menu position="right">
+                <Menu.Item header>
+                  <Icon
+                    onClick={() => {
+                      setSelectedCanvas(id);
+                      setModalOpen(true)
+                    }}
+                    style={{ cursor: "pointer" }} inverted name="expand" />
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu>
+
 
             <div
               ref={canvasContainer}
@@ -104,7 +127,15 @@ function App() {
           </Segment>
         );
       })}
-      <Divider hidden />
+      <Modal
+        style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black" }}
+        onClose={() => setModalOpen(false)}
+        onOpen={() => setModalOpen(true)}
+        open={modalOpen}
+      >
+        {selectedCanvas && modalOpen && CanvasObjects.find(({ id }) => id === selectedCanvas).component}
+      </Modal>
+      <Divider section />
     </Container>
   );
 }
